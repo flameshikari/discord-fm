@@ -4,11 +4,11 @@ You can use it on your local machine to display playing song from [Last.fm](http
 
 It displays the **Now Playing** or **Last Played** song playing on [Last.fm](https://last.fm/):
 
-![](.img/2.gif) 
+![Now Playing and Last Played](.img/2.gif)
 
 Also includes tooltips of total scrobbled tracks and trackname:
 
-![](.img/3.gif)
+![Total Scrobbled Tracks and Trackname](.img/3.gif)
 
 ## Requirements
 
@@ -17,6 +17,7 @@ Python 3.6.1+ with `pyyaml` and `pylast` modules
 ## Configuration
 
 Settings store in `config.yaml`. An example with random values:
+
 ```yaml
 lastfm:
   user: 'flameshikari'
@@ -33,26 +34,32 @@ discord:
 
 2. [Register Discord app](https://discordapp.com/developers/applications/), get `client ID` from **General Information** page and put it into `config.yaml`, also set app name and upload an icon on this page
 
-![](.img/4.png)
+![General Information Page](.img/4.png)
 
 3. On **Rich Presence** page upload assets that located in `assets` folder
 
-![](.img/5.png)
+![Rich Presence Assets](.img/5.png)
 
-4. Run script by command:
+4. Run script by next command:
 
 ```bash
-$ python3 last.py
+python3 last.py
 ```
 
-Proofs of working program:
+An example of output:
 
-![](.img/6.png)
+![CLI](.img/6.png)
 
-The program won't clear the presence until you close it.
+## Notes
+
+* Doesn't work without Discord application
+
+* Updates RPC once in 60 seconds
+
+* Won't clear the presence until you close it
 
 ## Credits
 
 * Forked from [Musca](https://github.com/musca1997)'s [Last.fm to Discord Status](https://github.com/musca1997/lastfm-to-discord-status)
 
-* RPC connection based on [Snazzah](https://github.com/musca1997)'s [ Sublime Discord Rich Presence](https://github.com/Snazzah/SublimeDiscordRP)
+* RPC connection based on [Snazzah](https://github.com/musca1997)'s [Sublime Discord Rich Presence](https://github.com/Snazzah/SublimeDiscordRP)

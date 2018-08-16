@@ -2,13 +2,15 @@
 
 You can use it on your local machine to display playing song from [Last.fm](https://last.fm/) to Discord status.
 
+![Now Playing and Last Played](img/1.png)
+
 It displays the **Now Playing** or **Last Played** song playing on [Last.fm](https://last.fm/):
 
-![Now Playing and Last Played](.img/2.gif)
+![Now Playing and Last Played](img/2.gif)
 
 Also includes tooltips of total scrobbled tracks and trackname:
 
-![Total Scrobbled Tracks and Trackname](.img/3.gif)
+![Total Scrobbled Tracks and Trackname](img/3.gif)
 
 ## Requirements
 
@@ -34,11 +36,11 @@ discord:
 
 2. [Register Discord app](https://discordapp.com/developers/applications/), get `client ID` from **General Information** page and put it into `config.yaml`, also set app name and upload an icon on this page
 
-![General Information Page](.img/4.png)
+![General Information Page](img/4.png)
 
 3. On **Rich Presence** page upload assets that located in `assets` folder
 
-![Rich Presence Assets](.img/5.png)
+![Rich Presence Assets](img/5.png)
 
 4. Run script by next command:
 
@@ -48,7 +50,7 @@ python3 last.py
 
 An example of output:
 
-![CLI](.img/6.png)
+![CLI](img/6.png)
 
 ## Notes
 

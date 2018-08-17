@@ -27,23 +27,29 @@ print('! Github: https://github.com/flameshikari/lastfm-to-discord-status\n')
 
 def init_api():
     try:
-        global user, now_playing_track, rpc
+        global user, now_playing, rpc
         lastfm = pylast.LastFMNetwork(api_key=config['lastfm']['key'],
-                                    api_secret=config['lastfm']['secret'])
+                                      api_secret=config['lastfm']['secret'])
         user = lastfm.get_user(config['lastfm']['user'])
-        now_playing_track = user.get_now_playing()
+        now_playing = user.get_now_playing()
         log('Connected to Last.fm API', 1)
     except Exception as b:
         log('Connection to Last.fm API is failed\n{}'.format(b), 2)
-        sys.exit(2)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        sys.exit(0)
     try:
         rpc = rpc.DiscordIpcClient.for_platform(config['discord']['app_id'])
         log('Connected to Discord RPC', 1)
     except Exception as a:
         log('Connection to Discord RPC is failed:\n{}'.format(a), 2)
-        sys.exit(1)
+        sys.exit(2)
+    except KeyboardInterrupt:
+        sys.exit(0)
+
 
 init_api()
+
 
 def update_activity(artist, title, genre, icon, count):
     values = {
@@ -57,6 +63,9 @@ def update_activity(artist, title, genre, icon, count):
         }
     }
     rpc.set_activity(values)
+
+
+now_playing_init = True
 
 
 while True:
@@ -78,14 +87,21 @@ while True:
             status = 'Last Played'
             icon = 'pause'
             update_activity(artist, title, genre, icon, count)
-        if track != now_playing_track:
-            now_playing_track = track
-            log('{}: {}'.format(status, str(now_playing_track).replace('-', '–', 1)))
+        if track != now_playing:
+            now_playing = track
+            log('{}: {}'.format(status, str(now_playing).replace('-', '–', 1)))
+        else:
+            if now_playing_init is True:
+                log('{}: {}'.format(status, str(now_playing).replace('-', '–', 1)))
+                now_playing_init = False
     except Exception as c:
             log('Something is gone wrong:\n{}. Restarting...'.format(c), 2)
             init_api()
             pass
     except KeyboardInterrupt:
         sys.exit(0)
+    try:
+        time.sleep(wait)
+    except KeyboardInterrupt:
+        sys.exit(0)
 
-    time.sleep(wait)

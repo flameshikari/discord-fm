@@ -2,15 +2,11 @@
 
 Simple script that bridges [Last.fm](https://last.fm/) and [Discord](discord.gg): it displays playing song in Discord status:
 
-![Now Playing and Last Played](img/1.png)
+![Preview](img/1.png)
 
-Script has two states: **Now Playing** and **Last Played**:
+The first row displays artist name, the second displays track title. The tooltip of large image displays genre of current track, the tooltip of small image displays total scrobbles. Small image changes depending on the status; it has two states: Now Playing and Last Played.
 
-![Now Playing and Last Played](img/2.gif)
-
-Also includes tooltips of total scrobbled tracks and trackname:
-
-![Total Scrobbled Tracks and Trackname](img/3.gif)
+![Preview](img/2.gif)
 
 ## Requirements
 
@@ -30,17 +26,17 @@ discord:
   app_id: '66304401022979518602'
 ```
 
-### Instruction how to get the keys:
+### How to get the keys
 
 1. [Create Last.fm API account](https://www.last.fm/api/account/create) to get `key` and `secret`, then insert these into `config.yaml`;
 
 2. [Register Discord app](https://discordapp.com/developers/applications/), get `client ID` from **General Information** page and put it into `config.yaml`, also set app name and upload an icon on this page;
 
-![General Information Page](img/4.png)
+![General Information Page](img/3.png)
 
 3. On **Rich Presence** page upload assets that located in `assets` folder;
 
-![Rich Presence Assets](img/5.png)
+![Rich Presence Assets](img/4.png)
 
 4. Run script by next command:
 
@@ -48,15 +44,19 @@ discord:
 python3 last.py
 ```
 
-An example of output:
+An example of script output:
 
-![CLI](img/6.png)
+```plain
+[17:17:51] [DONE] Connected to Last.fm API
+[17:17:51] [DONE] Connected to Discord RPC
+[17:17:56] [INFO] Last Played: I Declare War – Malevolence
+[17:18:59] [INFO] Now Playing: Magic Sword – The Way Home
+[17:20:02] [INFO] Now Playing: Korn – Beg for Me
+```
 
 ## Notes
 
 * Discord application must be on;
-
-* Tested on Windows and Linux machines;
 
 * Updates RPC once in 60 seconds;
 

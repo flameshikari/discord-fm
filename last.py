@@ -33,19 +33,19 @@ def init_api():
         user = lastfm.get_user(config['lastfm']['user'])
         now_playing = user.get_now_playing()
         log('Connected to Last.fm API', 1)
-    except Exception as b:
-        log('Connection to Last.fm API is failed\n{}'.format(b), 2)
+    except Exception as a:
+        log('Connection to Last.fm API is failed\n{}'.format(a), 2)
         sys.exit(1)
     except KeyboardInterrupt:
-        sys.exit(0)
+        sys.exit(130)
     try:
         rpc = rpc.DiscordIpcClient.for_platform(config['discord']['app_id'])
         log('Connected to Discord RPC', 1)
-    except Exception as a:
-        log('Connection to Discord RPC is failed:\n{}'.format(a), 2)
+    except Exception as b:
+        log('Connection to Discord RPC is failed:\n{}'.format(b), 2)
         sys.exit(2)
     except KeyboardInterrupt:
-        sys.exit(0)
+        sys.exit(130)
 
 
 init_api()
@@ -56,10 +56,10 @@ def update_activity(artist, title, genre, icon, count):
         'details': artist,
         'state': title,
         'assets': {
-            'small_text': 'Scrobbles: {}'.format(count),
-            'small_image': icon,
-            'large_text': 'Genre: {}'.format(genre),
-            'large_image': 'logo'
+            'small_text': '{} scrobbles!'.format(count),
+            'small_image': 'logo',
+            'large_text': 'Yeah, {}!'.format(genre.lower()),
+            'large_image': icon
         }
     }
     rpc.set_activity(values)
@@ -89,13 +89,13 @@ while True:
             update_activity(artist, title, genre, icon, count)
         if track != now_playing:
             now_playing = track
-            log('{}: {}'.format(status, str(now_playing).replace('-', '–', 1)))
+            log('{}: {}'.format(status, str(now_playing)))
         else:
             if now_playing_init is True:
-                log('{}: {}'.format(status, str(now_playing).replace('-', '–', 1)))
+                log('{}: {}'.format(status, str(now_playing)))
                 now_playing_init = False
     except Exception as c:
-            log('Something is gone wrong:\n{}. Restarting...'.format(c), 2)
+            log('Error:\n{}. Restarting...'.format(c), 2)
             init_api()
             pass
     except KeyboardInterrupt:
@@ -104,4 +104,3 @@ while True:
         time.sleep(wait)
     except KeyboardInterrupt:
         sys.exit(0)
-
